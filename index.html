@@ -1,39 +1,36 @@
-from zipfile import ZipFile
-from pathlib import Path
-
-# Struktur file HTML dengan integrasi Google Apps Script (untuk Spreadsheet)
-html_with_spreadsheet = """
 <!DOCTYPE html>
 <html lang="id">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Form Visitasi PAUD - PHA</title>
+  <title>Form Visitasi PAUD - Komprehensif</title>
   <style>
-    body { font-family: Arial, sans-serif; padding: 20px; max-width: 900px; margin: auto; }
-    input, textarea { width: 100%; padding: 10px; margin-bottom: 10px; border-radius: 5px; border: 1px solid #ccc; }
-    button { padding: 10px 20px; font-size: 16px; background: #28a745; color: white; border: none; border-radius: 5px; }
-    .section { background: #f8f9fa; padding: 15px; margin-top: 20px; border-radius: 8px; border: 1px solid #ddd; }
-    h3 { color: #333; }
+    body { font-family: 'Segoe UI', sans-serif; padding: 20px; max-width: 1000px; margin: auto; background: #f4f6f8; color: #333; }
+    input, textarea { width: 100%; padding: 10px; margin-bottom: 15px; border-radius: 5px; border: 1px solid #bbb; }
+    button { padding: 12px 24px; font-size: 16px; background: #007bff; color: white; border: none; border-radius: 5px; cursor: pointer; }
+    button:hover { background: #0056b3; }
+    .section { background: white; padding: 20px; margin-top: 25px; border-radius: 8px; box-shadow: 0 0 10px rgba(0,0,0,0.05); }
+    h2, h3 { color: #2c3e50; }
+    .butir-label { font-weight: bold; margin-top: 15px; display: block; }
   </style>
 </head>
 <body>
-  <h2>Form Visitasi PAUD (Terhubung Spreadsheet)</h2>
+  <h2>Form Visitasi PAUD (Instrumen Komprehensif)</h2>
 
   <label>Nama Sekolah</label>
-  <input type="text" id="nama_sekolah">
+  <input type="text" id="nama_sekolah" placeholder="Contoh: PAUD Ceria">
 
   <label>NPSN</label>
-  <input type="text" id="npsn">
+  <input type="text" id="npsn" placeholder="Contoh: 12345678">
 
   <div id="formContainer"></div>
 
-  <button onclick="kirimData()">Kirim</button>
+  <button onclick="kirimData()">Kirim ke Spreadsheet</button>
 
   <script>
-    const formData = {
+    const komponenData = {
       "1": {
-        title: "Stimulasi Nilai Agama dan Moral",
+        title: "Nilai Agama dan Moral",
         butir: {
           "1": "Guru menstimulasi anak untuk mempraktikkan pengalaman keagamaan",
           "2": "Guru menstimulasi anak beribadah sesuai agama/keyakinan",
@@ -41,7 +38,7 @@ html_with_spreadsheet = """
         }
       },
       "2": {
-        title: "Stimulasi Fisik Motorik",
+        title: "Fisik Motorik",
         butir: {
           "1": "Motorik kasar",
           "2": "Motorik halus",
@@ -49,7 +46,7 @@ html_with_spreadsheet = """
         }
       },
       "3": {
-        title: "Stimulasi Kognitif",
+        title: "Kognitif",
         butir: {
           "1": "Pemecahan masalah",
           "2": "Berpikir logis, kritis dan kreatif",
@@ -57,7 +54,7 @@ html_with_spreadsheet = """
         }
       },
       "4": {
-        title: "Stimulasi Bahasa",
+        title: "Bahasa",
         butir: {
           "1": "Bahasa reseptif",
           "2": "Bahasa ekspresif",
@@ -84,7 +81,7 @@ html_with_spreadsheet = """
         }
       },
       "7": {
-        title: "Inovasi & PTK",
+        title: "Inovasi dan PTK",
         butir: {
           "1": "Layanan inovatif",
           "2": "Pengembangan profesional guru"
@@ -93,7 +90,7 @@ html_with_spreadsheet = """
       "8": {
         title: "Keamanan & Lingkungan",
         butir: {
-          "1": "Prosedur keselamatan"
+          "1": "Keamanan dan prosedur keselamatan"
         }
       },
       "9": {
@@ -105,66 +102,52 @@ html_with_spreadsheet = """
       "10": {
         title: "Perilaku Hidup Sehat",
         butir: {
-          "1": "Membiasakan hidup sehat"
+          "1": "Pembiasaan hidup sehat"
         }
       }
     };
 
-    const container = document.getElementById("formContainer");
-    for (let kom in formData) {
+    const formContainer = document.getElementById("formContainer");
+    for (let kode in komponenData) {
       const section = document.createElement("div");
       section.className = "section";
-      section.innerHTML = `<h3>Komponen ${kom}: ${formData[kom].title}</h3>`;
-      const butirData = formData[kom].butir;
-      for (let i in butirData) {
-        const kode = `${kom}.${i}`;
-        section.innerHTML += `<label>${kode} - ${butirData[i]}</label>`;
-        section.innerHTML += `<textarea id="jawaban_${kode}"></textarea>`;
+      const title = `<h3>Komponen ${kode}: ${komponenData[kode].title}</h3>`;
+      let butirHTML = "";
+      for (let i in komponenData[kode].butir) {
+        const fullCode = `${kode}.${i}`;
+        butirHTML += `
+          <label class="butir-label">${fullCode} - ${komponenData[kode].butir[i]}</label>
+          <textarea id="jawaban_${fullCode}" placeholder="Tulis hasil pengamatan, wawancara, atau bukti pendukung..."></textarea>
+        `;
       }
-      container.appendChild(section);
+      section.innerHTML = title + butirHTML;
+      formContainer.appendChild(section);
     }
 
     function kirimData() {
-      const nama = document.getElementById("nama_sekolah").value;
-      const npsn = document.getElementById("npsn").value;
-      const jawaban = {};
+      const data = {
+        nama_sekolah: document.getElementById("nama_sekolah").value,
+        npsn: document.getElementById("npsn").value,
+        jawaban: {}
+      };
 
-      for (let kom in formData) {
-        for (let i in formData[kom].butir) {
-          const kode = `${kom}.${i}`;
-          jawaban[kode] = document.getElementById(`jawaban_${kode}`).value;
+      for (let kode in komponenData) {
+        for (let i in komponenData[kode].butir) {
+          const fullCode = `${kode}.${i}`;
+          data.jawaban[fullCode] = document.getElementById(`jawaban_${fullCode}`).value;
         }
       }
-
-      const data = {
-        nama_sekolah: nama,
-        npsn: npsn,
-        jawaban: jawaban
-      };
 
       fetch("https://script.google.com/macros/s/YOUR_SCRIPT_ID/exec", {
         method: "POST",
         body: JSON.stringify(data),
         headers: { "Content-Type": "application/json" }
       })
-      .then(response => response.text())
-      .then(result => alert("Data berhasil dikirim!"))
-      .catch(error => alert("Gagal mengirim: " + error));
+      .then(res => res.text())
+      .then(msg => alert("Data berhasil dikirim!"))
+      .catch(err => alert("Gagal mengirim: " + err));
     }
   </script>
 </body>
 </html>
-"""
 
-# Simpan file
-html_dir = Path("/mnt/data/form-visitasi-paud-spreadsheet")
-html_dir.mkdir(exist_ok=True)
-index_file = html_dir / "index.html"
-index_file.write_text(html_with_spreadsheet, encoding="utf-8")
-
-# Zip file
-zip_output = "/mnt/data/form-visitasi-paud-spreadsheet.zip"
-with ZipFile(zip_output, "w") as zipf:
-    zipf.write(index_file, arcname="index.html")
-
-zip_output
