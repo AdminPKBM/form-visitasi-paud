@@ -1,153 +1,87 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Form Visitasi PAUD - Komprehensif</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Form Visitasi PAUD</title>
   <style>
-    body { font-family: 'Segoe UI', sans-serif; padding: 20px; max-width: 1000px; margin: auto; background: #f4f6f8; color: #333; }
-    input, textarea { width: 100%; padding: 10px; margin-bottom: 15px; border-radius: 5px; border: 1px solid #bbb; }
-    button { padding: 12px 24px; font-size: 16px; background: #007bff; color: white; border: none; border-radius: 5px; cursor: pointer; }
-    button:hover { background: #0056b3; }
-    .section { background: white; padding: 20px; margin-top: 25px; border-radius: 8px; box-shadow: 0 0 10px rgba(0,0,0,0.05); }
-    h2, h3 { color: #2c3e50; }
-    .butir-label { font-weight: bold; margin-top: 15px; display: block; }
+    body { font-family: Arial, sans-serif; padding: 20px; max-width: 900px; margin: auto; }
+    label { display: block; margin-top: 10px; font-weight: bold; }
+    input, textarea {
+      width: 100%; padding: 10px; margin-bottom: 10px;
+      border: 1px solid #ccc; border-radius: 5px;
+    }
+    button {
+      padding: 10px 20px; background: #28a745; color: white;
+      border: none; border-radius: 5px; font-size: 16px;
+    }
+    button:hover { background: #218838; }
+    .komponen { margin-top: 30px; background: #f9f9f9; padding: 15px; border-radius: 8px; }
   </style>
 </head>
 <body>
-  <h2>Form Visitasi PAUD (Instrumen Komprehensif)</h2>
 
-  <label>Nama Sekolah</label>
-  <input type="text" id="nama_sekolah" placeholder="Contoh: PAUD Ceria">
+<h2>Form Visitasi PAUD</h2>
 
-  <label>NPSN</label>
-  <input type="text" id="npsn" placeholder="Contoh: 12345678">
+<label>Nama Sekolah</label>
+<input type="text" id="nama_sekolah" placeholder="Contoh: PAUD Ceria" required>
 
-  <div id="formContainer"></div>
+<label>NPSN</label>
+<input type="text" id="npsn" placeholder="Contoh: 12345678" required>
 
-  <button onclick="kirimData()">Kirim ke Spreadsheet</button>
+<div id="formContainer"></div>
 
-  <script>
-    const komponenData = {
-      "1": {
-        title: "Nilai Agama dan Moral",
-        butir: {
-          "1": "Guru menstimulasi anak untuk mempraktikkan pengalaman keagamaan",
-          "2": "Guru menstimulasi anak beribadah sesuai agama/keyakinan",
-          "3": "Guru membiasakan perilaku terpuji"
-        }
-      },
-      "2": {
-        title: "Fisik Motorik",
-        butir: {
-          "1": "Motorik kasar",
-          "2": "Motorik halus",
-          "3": "PHBS"
-        }
-      },
-      "3": {
-        title: "Kognitif",
-        butir: {
-          "1": "Pemecahan masalah",
-          "2": "Berpikir logis, kritis dan kreatif",
-          "3": "Berpikir simbolis"
-        }
-      },
-      "4": {
-        title: "Bahasa",
-        butir: {
-          "1": "Bahasa reseptif",
-          "2": "Bahasa ekspresif",
-          "3": "Keaksaraan"
-        }
-      },
-      "5": {
-        title: "Sosial Emosional",
-        butir: {
-          "1": "Mengendalikan diri",
-          "2": "Perilaku prososial",
-          "3": "Cinta tanah air",
-          "4": "Budaya daerah"
-        }
-      },
-      "6": {
-        title: "Fasilitasi Pembelajaran",
-        butir: {
-          "1": "Lingkungan sebagai sumber belajar",
-          "2": "Bermain sesuai minat",
-          "3": "Pendekatan saintifik",
-          "4": "Berkarya sesuai ide",
-          "5": "Scaffolding dari guru"
-        }
-      },
-      "7": {
-        title: "Inovasi dan PTK",
-        butir: {
-          "1": "Layanan inovatif",
-          "2": "Pengembangan profesional guru"
-        }
-      },
-      "8": {
-        title: "Keamanan & Lingkungan",
-        butir: {
-          "1": "Keamanan dan prosedur keselamatan"
-        }
-      },
-      "9": {
-        title: "Dukungan Orangtua",
-        butir: {
-          "1": "Keterlibatan orang tua"
-        }
-      },
-      "10": {
-        title: "Perilaku Hidup Sehat",
-        butir: {
-          "1": "Pembiasaan hidup sehat"
-        }
-      }
+<button onclick="kirimData()">Kirim</button>
+
+<script>
+  const butir = [
+    "1.1","1.2","1.3","2.1","2.2","2.3",
+    "3.1","3.2","3.3","4.1","4.2","4.3",
+    "5.1","5.2","5.3","5.4","6.1","6.2","6.3","6.4","6.5",
+    "7.1","7.2","8.1","9.1","10.1"
+  ];
+
+  const formContainer = document.getElementById("formContainer");
+  butir.forEach(kode => {
+    const label = document.createElement("label");
+    label.innerText = `Butir ${kode}`;
+    const textarea = document.createElement("textarea");
+    textarea.id = `butir_${kode}`;
+    textarea.placeholder = "Tulis observasi, wawancara, atau dokumen...";
+    formContainer.appendChild(label);
+    formContainer.appendChild(textarea);
+  });
+
+  function kirimData() {
+    const nama = document.getElementById("nama_sekolah").value.trim();
+    const npsn = document.getElementById("npsn").value.trim();
+
+    if (!nama || !npsn) {
+      alert("Mohon isi Nama Sekolah dan NPSN.");
+      return;
+    }
+
+    const jawaban = {};
+    butir.forEach(kode => {
+      jawaban[kode] = document.getElementById(`butir_${kode}`).value.trim();
+    });
+
+    const data = {
+      nama_sekolah: nama,
+      npsn: npsn,
+      jawaban: jawaban
     };
 
-    const formContainer = document.getElementById("formContainer");
-    for (let kode in komponenData) {
-      const section = document.createElement("div");
-      section.className = "section";
-      const title = `<h3>Komponen ${kode}: ${komponenData[kode].title}</h3>`;
-      let butirHTML = "";
-      for (let i in komponenData[kode].butir) {
-        const fullCode = `${kode}.${i}`;
-        butirHTML += `
-          <label class="butir-label">${fullCode} - ${komponenData[kode].butir[i]}</label>
-          <textarea id="jawaban_${fullCode}" placeholder="Tulis hasil pengamatan, wawancara, atau bukti pendukung..."></textarea>
-        `;
-      }
-      section.innerHTML = title + butirHTML;
-      formContainer.appendChild(section);
-    }
+    fetch("https://script.google.com/macros/s/AKfycbyMFsrlt99Kq7NXypkQhObpSXNX2KDgYOTxATNVao424q6Ug6T5hwhDdvucORZKXwXk/exec", {
+      method: "POST",
+      mode: "no-cors", // untuk bypass error fetch dari GitHub Pages
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(data)
+    })
+    .then(() => alert("✅ Data berhasil dikirim ke spreadsheet!"))
+    .catch(err => alert("Gagal mengirim: " + err));
+  }
+</script>
 
-    function kirimData() {
-      const data = {
-        nama_sekolah: document.getElementById("nama_sekolah").value,
-        npsn: document.getElementById("npsn").value,
-        jawaban: {}
-      };
-
-      for (let kode in komponenData) {
-        for (let i in komponenData[kode].butir) {
-          const fullCode = `${kode}.${i}`;
-          data.jawaban[fullCode] = document.getElementById(`jawaban_${fullCode}`).value;
-        }
-      }
-
-      fetch("https://script.google.com/macros/s/AKfycbyMFsrlt99Kq7NXypkQhObpSXNX2KDgYOTxATNVao424q6Ug6T5hwhDdvucORZKXwXk/exec", {
-        method: "POST",
-        body: JSON.stringify(data),
-        headers: { "Content-Type": "application/json" }
-      })
-      .then(res => res.text())
-      .then(msg => alert("Data berhasil dikirim!"))
-      .catch(err => alert("Gagal mengirim: " + err));
-    }
-  </script>
 </body>
 </html>
-
