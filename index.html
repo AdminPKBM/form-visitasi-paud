@@ -1,227 +1,170 @@
+from zipfile import ZipFile
+from pathlib import Path
+
+# Struktur file HTML dengan integrasi Google Apps Script (untuk Spreadsheet)
+html_with_spreadsheet = """
 <!DOCTYPE html>
 <html lang="id">
 <head>
-  <meta charset="UTF-8" />
-  <title>Form Visitasi PAUD</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Form Visitasi PAUD - PHA</title>
   <style>
-    body { font-family: Arial, sans-serif; margin: 20px; max-width: 900px; }
-    label { display: block; margin: 15px 0 5px; font-weight: bold; }
-    textarea, select, input[type="text"] {
-      width: 100%; padding: 8px; margin-bottom: 10px; border-radius: 5px; border: 1px solid #ccc;
-    }
-    button {
-      background-color: #28a745; color: white; border: none;
-      padding: 12px 25px; border-radius: 5px; font-size: 16px; cursor: pointer;
-    }
-    button:hover { background-color: #218838; }
-    .section { margin-top: 30px; padding: 15px; border: 1px solid #ddd; border-radius: 8px; background: #f9f9f9; }
+    body { font-family: Arial, sans-serif; padding: 20px; max-width: 900px; margin: auto; }
+    input, textarea { width: 100%; padding: 10px; margin-bottom: 10px; border-radius: 5px; border: 1px solid #ccc; }
+    button { padding: 10px 20px; font-size: 16px; background: #28a745; color: white; border: none; border-radius: 5px; }
+    .section { background: #f8f9fa; padding: 15px; margin-top: 20px; border-radius: 8px; border: 1px solid #ddd; }
+    h3 { color: #333; }
   </style>
 </head>
 <body>
+  <h2>Form Visitasi PAUD (Terhubung Spreadsheet)</h2>
 
-  <h2>Form Visitasi PAUD</h2>
+  <label>Nama Sekolah</label>
+  <input type="text" id="nama_sekolah">
 
-  <label for="nama">Nama Sekolah</label>
-  <input type="text" id="nama" required />
+  <label>NPSN</label>
+  <input type="text" id="npsn">
 
-  <label for="npsn">NPSN</label>
-  <input type="text" id="npsn" required />
-
-  <label for="komponen">Pilih Komponen</label>
-  <select id="komponen" onchange="tampilkanButir()">
-    <option value="">-- Pilih Komponen --</option>
-  </select>
-
-  <div id="butirContainer" class="section" style="display:none;"></div>
+  <div id="formContainer"></div>
 
   <button onclick="kirimData()">Kirim</button>
 
   <script>
-    const data = {
-      "Nilai Agama & Moral": [
-        {
-          butir: "1. Guru menstimulasi anak untuk mempraktikkan pengalaman keagamaan",
-          indikator: "- Storytelling nilai agama\n- Mengenalkan ciptaan Tuhan\n- Contoh perilaku baik terhadap sesama & makhluk hidup"
-        },
-        {
-          butir: "2. Guru menstimulasi anak beribadah sesuai agama/keyakinan",
-          indikator: "- Membaca doa, salam, praktik ibadah, mengenal tempat ibadah"
+    const formData = {
+      "1": {
+        title: "Stimulasi Nilai Agama dan Moral",
+        butir: {
+          "1": "Guru menstimulasi anak untuk mempraktikkan pengalaman keagamaan",
+          "2": "Guru menstimulasi anak beribadah sesuai agama/keyakinan",
+          "3": "Guru membiasakan perilaku terpuji"
         }
-      ],
-      "Nilai Sosial-Emosional": [
-        {
-          butir: "3. Pembiasaan perilaku terpuji",
-          indikator: "- Hormat orang tua, jujur, tolong menolong"
-        },
-        {
-          butir: "14. Mengendalikan diri",
-          indikator: "- Antri, disiplin, tanggung jawab"
-        },
-        {
-          butir: "15. Perilaku prososial",
-          indikator: "- Empati, tolong menolong, kerjasama"
+      },
+      "2": {
+        title: "Stimulasi Fisik Motorik",
+        butir: {
+          "1": "Motorik kasar",
+          "2": "Motorik halus",
+          "3": "PHBS"
         }
-      ],
-      "Motorik": [
-        {
-          butir: "4. Motorik kasar",
-          indikator: "- Berjalan, melompat, menendang"
-        },
-        {
-          butir: "5. Motorik halus",
-          indikator: "- Menggambar, menyusun, menulis"
+      },
+      "3": {
+        title: "Stimulasi Kognitif",
+        butir: {
+          "1": "Pemecahan masalah",
+          "2": "Berpikir logis, kritis dan kreatif",
+          "3": "Berpikir simbolis"
         }
-      ],
-      "PHBS & Keamanan": [
-        {
-          butir: "6. PHBS",
-          indikator: "- Cuci tangan, gosok gigi, buang sampah"
-        },
-        {
-          butir: "7. Keamanan anak & lingkungan",
-          indikator: "- SOP keselamatan, safety talk"
-        },
-        {
-          butir: "26. Hidup sehat",
-          indikator: "- Makan sehat, minum air putih, sinar matahari"
+      },
+      "4": {
+        title: "Stimulasi Bahasa",
+        butir: {
+          "1": "Bahasa reseptif",
+          "2": "Bahasa ekspresif",
+          "3": "Keaksaraan"
         }
-      ],
-      "Kognitif & Bahasa": [
-        {
-          butir: "8. Pemecahan masalah",
-          indikator: "- Identifikasi masalah, cari solusi, scaffolding"
-        },
-        {
-          butir: "9. Berpikir logis, kritis, kreatif",
-          indikator: "- Klasifikasi, hubungan, sebab-akibat"
-        },
-        {
-          butir: "10. Berpikir simbolis",
-          indikator: "- Mengenal angka, huruf, simbol"
-        },
-        {
-          butir: "11. Bahasa reseptif",
-          indikator: "- Cerita, tanggapan anak"
-        },
-        {
-          butir: "12. Bahasa ekspresif",
-          indikator: "- Bertanya, bercerita, ekspresi"
+      },
+      "5": {
+        title: "Sosial Emosional",
+        butir: {
+          "1": "Mengendalikan diri",
+          "2": "Perilaku prososial",
+          "3": "Cinta tanah air",
+          "4": "Budaya daerah"
         }
-      ],
-      "Keaksaraan & Pembelajaran": [
-        {
-          butir: "13. Pra membaca & menulis",
-          indikator: "- Main huruf, menulis nama, literasi awal"
-        },
-        {
-          butir: "19. Kegiatan bermain sesuai minat",
-          indikator: "- Area main sesuai tahap anak"
-        },
-        {
-          butir: "20. Pendekatan saintifik",
-          indikator: "- Mengamati, bertanya, eksplorasi"
-        },
-        {
-          butir: "21. Karya anak",
-          indikator: "- Ekspresi bebas, kerja kelompok"
+      },
+      "6": {
+        title: "Fasilitasi Pembelajaran",
+        butir: {
+          "1": "Lingkungan sebagai sumber belajar",
+          "2": "Bermain sesuai minat",
+          "3": "Pendekatan saintifik",
+          "4": "Berkarya sesuai ide",
+          "5": "Scaffolding dari guru"
         }
-      ],
-      "Inovasi & Kelembagaan": [
-        {
-          butir: "22. Scaffolding oleh guru",
-          indikator: "- Inspirasi awal, penguatan, kebebasan eksplorasi"
-        },
-        {
-          butir: "23. Inovasi pembelajaran",
-          indikator: "- IT, budaya lokal, studi banding"
-        },
-        {
-          butir: "24. Dukungan orang tua",
-          indikator: "- Buku komunikasi, parenting, pendamping"
-        },
-        {
-          butir: "25. Pengembangan profesional guru",
-          indikator: "- Pelatihan, diskusi praktik baik"
+      },
+      "7": {
+        title: "Inovasi & PTK",
+        butir: {
+          "1": "Layanan inovatif",
+          "2": "Pengembangan profesional guru"
         }
-      ],
-      "Kebhinekaan & Lingkungan": [
-        {
-          butir: "16. Cinta tanah air",
-          indikator: "- Bendera, lagu nasional, presiden"
-        },
-        {
-          butir: "17. Budaya lokal",
-          indikator: "- Bahasa, tarian, lagu daerah"
-        },
-        {
-          butir: "18. Potensi lingkungan sebagai sumber belajar",
-          indikator: "- Alam sekitar, bahan lokal"
+      },
+      "8": {
+        title: "Keamanan & Lingkungan",
+        butir: {
+          "1": "Prosedur keselamatan"
         }
-      ]
+      },
+      "9": {
+        title: "Dukungan Orangtua",
+        butir: {
+          "1": "Keterlibatan orang tua"
+        }
+      },
+      "10": {
+        title: "Perilaku Hidup Sehat",
+        butir: {
+          "1": "Membiasakan hidup sehat"
+        }
+      }
     };
 
-    // Inisialisasi dropdown komponen
-    const komponenSelect = document.getElementById("komponen");
-    for (let komponen in data) {
-      const opt = document.createElement("option");
-      opt.value = komponen;
-      opt.textContent = komponen;
-      komponenSelect.appendChild(opt);
-    }
-
-    function tampilkanButir() {
-      const kontainer = document.getElementById("butirContainer");
-      kontainer.innerHTML = "";
-      const komponen = komponenSelect.value;
-      if (!komponen) {
-        kontainer.style.display = "none";
-        return;
+    const container = document.getElementById("formContainer");
+    for (let kom in formData) {
+      const section = document.createElement("div");
+      section.className = "section";
+      section.innerHTML = `<h3>Komponen ${kom}: ${formData[kom].title}</h3>`;
+      const butirData = formData[kom].butir;
+      for (let i in butirData) {
+        const kode = `${kom}.${i}`;
+        section.innerHTML += `<label>${kode} - ${butirData[i]}</label>`;
+        section.innerHTML += `<textarea id="jawaban_${kode}"></textarea>`;
       }
-
-      data[komponen].forEach((item, index) => {
-        const label = document.createElement("label");
-        label.textContent = `${item.butir} (${item.indikator})`;
-        const textarea = document.createElement("textarea");
-        textarea.id = `jawaban_${komponen}_${index}`;
-        kontainer.appendChild(label);
-        kontainer.appendChild(textarea);
-      });
-      kontainer.style.display = "block";
+      container.appendChild(section);
     }
 
     function kirimData() {
-      const nama = document.getElementById("nama").value;
+      const nama = document.getElementById("nama_sekolah").value;
       const npsn = document.getElementById("npsn").value;
-      const komponen = komponenSelect.value;
+      const jawaban = {};
 
-      if (!nama || !npsn || !komponen) {
-        alert("Mohon lengkapi semua isian");
-        return;
+      for (let kom in formData) {
+        for (let i in formData[kom].butir) {
+          const kode = `${kom}.${i}`;
+          jawaban[kode] = document.getElementById(`jawaban_${kode}`).value;
+        }
       }
 
-      const jawaban = [];
-      data[komponen].forEach((item, index) => {
-        jawaban.push(document.getElementById(`jawaban_${komponen}_${index}`).value || "");
-      });
-
-      const payload = {
+      const data = {
         nama_sekolah: nama,
         npsn: npsn,
-        komponen: komponen,
         jawaban: jawaban
       };
 
-      // Ganti URL berikut dengan URL Google Apps Script Anda
-      fetch("https://script.google.com/macros/s/YOUR_DEPLOYED_URL/exec", {
+      fetch("https://script.google.com/macros/s/YOUR_SCRIPT_ID/exec", {
         method: "POST",
-        body: JSON.stringify(payload),
+        body: JSON.stringify(data),
         headers: { "Content-Type": "application/json" }
       })
-      .then(res => res.text())
-      .then(res => alert("Data berhasil dikirim!"))
-      .catch(err => alert("Gagal mengirim: " + err));
+      .then(response => response.text())
+      .then(result => alert("Data berhasil dikirim!"))
+      .catch(error => alert("Gagal mengirim: " + error));
     }
   </script>
 </body>
 </html>
+"""
+
+# Simpan file
+html_dir = Path("/mnt/data/form-visitasi-paud-spreadsheet")
+html_dir.mkdir(exist_ok=True)
+index_file = html_dir / "index.html"
+index_file.write_text(html_with_spreadsheet, encoding="utf-8")
+
+# Zip file
+zip_output = "/mnt/data/form-visitasi-paud-spreadsheet.zip"
+with ZipFile(zip_output, "w") as zipf:
+    zipf.write(index_file, arcname="index.html")
+
+zip_output
