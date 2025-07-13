@@ -16,7 +16,21 @@
       border: none; border-radius: 5px; font-size: 16px;
     }
     button:hover { background: #218838; }
-    .komponen { margin-top: 30px; background: #f9f9f9; padding: 15px; border-radius: 8px; }
+    .komponen {
+      margin-top: 30px;
+      background: #f9f9f9;
+      padding: 15px;
+      border-radius: 8px;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    }
+    .checkbox-group {
+      margin-bottom: 10px;
+    }
+    .checkbox-group label {
+      display: inline-block;
+      margin-right: 10px;
+      font-weight: normal;
+    }
   </style>
 </head>
 <body>
@@ -41,15 +55,43 @@
     "7.1","7.2","8.1","9.1","10.1"
   ];
 
+  const indikator = ["A", "B", "C"];
+
   const formContainer = document.getElementById("formContainer");
   butir.forEach(kode => {
+    const section = document.createElement("div");
+    section.className = "komponen";
+
     const label = document.createElement("label");
     label.innerText = `Butir ${kode}`;
+    section.appendChild(label);
+
+    // Checkbox indikator
+    const checkboxGroup = document.createElement("div");
+    checkboxGroup.className = "checkbox-group";
+    indikator.forEach(ind => {
+      const checkbox = document.createElement("input");
+      checkbox.type = "checkbox";
+      checkbox.id = `ind_${kode}_${ind}`;
+      checkbox.name = `ind_${kode}`;
+      checkbox.value = ind;
+
+      const checkboxLabel = document.createElement("label");
+      checkboxLabel.htmlFor = checkbox.id;
+      checkboxLabel.innerText = `Indikator ${ind}`;
+
+      checkboxGroup.appendChild(checkbox);
+      checkboxGroup.appendChild(checkboxLabel);
+    });
+    section.appendChild(checkboxGroup);
+
+    // Textarea observasi
     const textarea = document.createElement("textarea");
     textarea.id = `butir_${kode}`;
     textarea.placeholder = "Tulis observasi, wawancara, atau dokumen...";
-    formContainer.appendChild(label);
-    formContainer.appendChild(textarea);
+    section.appendChild(textarea);
+
+    formContainer.appendChild(section);
   });
 
   function kirimData() {
@@ -63,7 +105,19 @@
 
     const jawaban = {};
     butir.forEach(kode => {
-      jawaban[kode] = document.getElementById(`butir_${kode}`).value.trim();
+      const observasi = document.getElementById(`butir_${kode}`).value.trim();
+      const indikatorDipilih = [];
+      indikator.forEach(ind => {
+        const checkbox = document.getElementById(`ind_${kode}_${ind}`);
+        if (checkbox && checkbox.checked) {
+          indikatorDipilih.push(ind);
+        }
+      });
+
+      jawaban[kode] = {
+        observasi: observasi,
+        indikator: indikatorDipilih
+      };
     });
 
     const data = {
@@ -74,7 +128,7 @@
 
     fetch("https://script.google.com/macros/s/AKfycbyMFsrlt99Kq7NXypkQhObpSXNX2KDgYOTxATNVao424q6Ug6T5hwhDdvucORZKXwXk/exec", {
       method: "POST",
-      mode: "no-cors", // untuk bypass error fetch dari GitHub Pages
+      mode: "no-cors",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(data)
     })
