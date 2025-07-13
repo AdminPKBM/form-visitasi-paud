@@ -35,11 +35,17 @@
       background: #218838;
     }
     .komponen {
-      margin-top: 30px;
-      background: #f9f9f9;
-      padding: 15px;
+      margin-top: 40px;
+      background: #e9f7ef;
+      padding: 20px;
       border-radius: 8px;
-      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+    }
+    .butir {
+      margin-top: 20px;
+      padding: 15px;
+      background: #f9f9f9;
+      border-radius: 6px;
     }
     .checkbox-group label {
       display: block;
@@ -58,107 +64,336 @@
 <label>NPSN</label>
 <input type="text" id="npsn" placeholder="Contoh: 12345678" required>
 
-<div id="formContainer"></div>
+<div class="komponen">
+  <h3>Komponen 1: Nilai Agama dan Moral</h3>
+  <div class="butir">
+    <label>Butir 1.1</label>
+    <div class="checkbox-group">
+      <label><input type="checkbox" name="indikator_1_1" value="1"> Guru menanamkan nilai keagamaan melalui dialog, dongeng, cerita, atau buku cerita</label>
+      <label><input type="checkbox" name="indikator_1_1" value="2"> Guru mengenalkan makhluk ciptaan Tuhan dan hasil karya manusia</label>
+      <label><input type="checkbox" name="indikator_1_1" value="3"> Guru memberi contoh perilaku baik terhadap manusia ciptaan Tuhan</label>
+      <label><input type="checkbox" name="indikator_1_1" value="4"> Guru memberi contoh perilaku baik terhadap makhluk ciptaan Tuhan</label>
+    </div>
+    <textarea id="observasi_1_1" placeholder="Tulis hasil observasi untuk Butir 1.1"></textarea>
+  </div>
+
+  <div class="butir">
+    <label>Butir 1.2</label>
+    <div class="checkbox-group">
+      <label><input type="checkbox" name="indikator_1_2" value="1"> Guru menstimulasi anak mengucapkan doa</label>
+      <label><input type="checkbox" name="indikator_1_2" value="2"> Guru menstimulasi anak mengucapkan salam</label>
+      <label><input type="checkbox" name="indikator_1_2" value="3"> Guru menstimulasi praktik ibadah</label>
+      <label><input type="checkbox" name="indikator_1_2" value="4"> Guru mengenalkan tempat ibadah</label>
+    </div>
+    <textarea id="observasi_1_2" placeholder="Tulis hasil observasi untuk Butir 1.2"></textarea>
+  </div>
+
+  <div class="butir">
+    <label>Butir 1.3</label>
+    <div class="checkbox-group">
+      <label><input type="checkbox" name="indikator_1_3" value="1"> Guru membiasakan menghormati orang tua</label>
+      <label><input type="checkbox" name="indikator_1_3" value="2"> Guru membiasakan sikap jujur</label>
+      <label><input type="checkbox" name="indikator_1_3" value="3"> Guru menstimulasi anak menolong orang lain</label>
+    </div>
+    <textarea id="observasi_1_3" placeholder="Tulis hasil observasi untuk Butir 1.3"></textarea>
+  </div>
+</div>
+
+<div class="komponen">
+  <h3>Komponen 2: Fisik Motorik</h3>
+  <div class="butir">
+    <label>Butir 2.1</label>
+    <div class="checkbox-group">
+      <label><input type="checkbox" name="indikator_2_1" value="1"> Berjalan, berlari, melompat, meloncat, meluncur, skipping (lompat tali), dan lain-lain</label>
+      <label><input type="checkbox" name="indikator_2_1" value="2"> Menekuk dan meregang, mendorong dan menarik, mengangkat dan menurunkan, dan lain-lain</label>
+      <label><input type="checkbox" name="indikator_2_1" value="3"> Memutar, mengocok, melingkar, melambungkan, dan lain-lain</label>
+      <label><input type="checkbox" name="indikator_2_1" value="4"> Melempar, menangkap, menendang, memukul dan lain-lain</label>
+    </div>
+    <textarea id="observasi_2_1" placeholder="Tulis hasil observasi untuk Butir 2.1"></textarea>
+  </div>
+
+  <div class="butir">
+    <label>Butir 2.2</label>
+    <div class="checkbox-group">
+      <label><input type="checkbox" name="indikator_2_2" value="1"> Memindahkan benda dari tangan satu ke tangan lainnya</label>
+      <label><input type="checkbox" name="indikator_2_2" value="2"> Mencoret-coret/menggambar/melukis</label>
+      <label><input type="checkbox" name="indikator_2_2" value="3"> Menyusun balok/puzzle/benda lainnya</label>
+      <label><input type="checkbox" name="indikator_2_2" value="4"> Meremas/membentuk/menggunting/merobek</label>
+      <label><input type="checkbox" name="indikator_2_2" value="5"> Menggunakan alat tulis</label>
+    </div>
+    <textarea id="observasi_2_2" placeholder="Tulis hasil observasi untuk Butir 2.2"></textarea>
+  </div>
+
+  <div class="butir">
+    <label>Butir 2.3</label>
+    <div class="checkbox-group">
+      <label><input type="checkbox" name="indikator_2_3" value="1"> Mencuci tangan dengan sabun</label>
+      <label><input type="checkbox" name="indikator_2_3" value="2"> Menggosok gigi dan memotong kuku</label>
+      <label><input type="checkbox" name="indikator_2_3" value="3"> Menaruh sampah pada tempatnya</label>
+      <label><input type="checkbox" name="indikator_2_3" value="4"> Membersihkan lingkungan setelah bermain</label>
+      <label><input type="checkbox" name="indikator_2_3" value="5"> Standar penanganan COVID-19</label>
+    </div>
+    <textarea id="observasi_2_3" placeholder="Tulis hasil observasi untuk Butir 2.3"></textarea>
+  </div>
+</div>
+
+<div class="komponen">
+  <h3>Komponen 3: Kognitif</h3>
+  <div class="butir">
+    <label>Butir 3.1</label>
+    <div class="checkbox-group">
+      <label><input type="checkbox" name="indikator_3_1" value="1"> Menstimulasi anak mengidentifikasi masalah yang dihadapi</label>
+      <label><input type="checkbox" name="indikator_3_1" value="2"> Menstimulasi anak mencari solusi masalah</label>
+      <label><input type="checkbox" name="indikator_3_1" value="3"> Memberikan dukungan (scaffolding) untuk menyelesaikan masalah</label>
+      <label><input type="checkbox" name="indikator_3_1" value="4"> Memberikan penghargaan ketika anak berhasil memecahkan masalah</label>
+    </div>
+    <textarea id="observasi_3_1" placeholder="Tulis hasil observasi untuk Butir 3.1"></textarea>
+  </div>
+
+  <div class="butir">
+    <label>Butir 3.2</label>
+    <div class="checkbox-group">
+      <label><input type="checkbox" name="indikator_3_2" value="1"> Memahami persamaan dan perbedaan</label>
+      <label><input type="checkbox" name="indikator_3_2" value="2"> Memahami konsep menghubungkan dan sebab-akibat</label>
+      <label><input type="checkbox" name="indikator_3_2" value="3"> Mengklasifikasi berdasarkan bentuk, ukuran, warna</label>
+    </div>
+    <textarea id="observasi_3_2" placeholder="Tulis hasil observasi untuk Butir 3.2"></textarea>
+  </div>
+
+  <div class="butir">
+    <label>Butir 3.3</label>
+    <div class="checkbox-group">
+      <label><input type="checkbox" name="indikator_3_3" value="1"> Mengenal konsep bilangan dan/atau huruf</label>
+      <label><input type="checkbox" name="indikator_3_3" value="2"> Menggunakan konsep bilangan/huruf</label>
+      <label><input type="checkbox" name="indikator_3_3" value="3"> Mempresentasikan benda/imajinasi dalam bentuk karya</label>
+    </div>
+    <textarea id="observasi_3_3" placeholder="Tulis hasil observasi untuk Butir 3.3"></textarea>
+  </div>
+</div>
+
+<div class="komponen">
+  <h3>Komponen 4: Bahasa</h3>
+  <div class="butir">
+    <label>Butir 4.1</label>
+    <div class="checkbox-group">
+      <label><input type="checkbox" name="indikator_4_1" value="1"> Cerita sederhana</label>
+      <label><input type="checkbox" name="indikator_4_1" value="2"> Pertanyaan sederhana</label>
+      <label><input type="checkbox" name="indikator_4_1" value="3"> Pernyataan sederhana</label>
+    </div>
+    <textarea id="observasi_4_1" placeholder="Tulis hasil observasi untuk Butir 4.1"></textarea>
+  </div>
+
+  <div class="butir">
+    <label>Butir 4.2</label>
+    <div class="checkbox-group">
+      <label><input type="checkbox" name="indikator_4_2" value="1"> Bertanya/menjawab pertanyaan</label>
+      <label><input type="checkbox" name="indikator_4_2" value="2"> Berkomunikasi secara lisan</label>
+      <label><input type="checkbox" name="indikator_4_2" value="3"> Bercerita/menceritakan kembali</label>
+      <label><input type="checkbox" name="indikator_4_2" value="4"> Mengekspresikan ide/perasaan</label>
+    </div>
+    <textarea id="observasi_4_2" placeholder="Tulis hasil observasi untuk Butir 4.2"></textarea>
+  </div>
+
+  <div class="butir">
+    <label>Butir 4.3</label>
+    <div class="checkbox-group">
+      <label><input type="checkbox" name="indikator_4_3" value="1"> Mengamati/memegang bahan bacaan (gambar/tulisan)</label>
+      <label><input type="checkbox" name="indikator_4_3" value="2"> Kegiatan pra membaca dengan berbagai media</label>
+      <label><input type="checkbox" name="indikator_4_3" value="3"> Kegiatan pra menulis dengan berbagai alat dan bahan</label>
+    </div>
+    <textarea id="observasi_4_3" placeholder="Tulis hasil observasi untuk Butir 4.3"></textarea>
+  </div>
+</div>
+
+<div class="komponen">
+  <h3>Komponen 5: Sosial Emosional</h3>
+  <div class="butir">
+    <label>Butir 5.1</label>
+    <div class="checkbox-group">
+      <label><input type="checkbox" name="indikator_5_1" value="1"> Anak terbiasa antri</label>
+      <label><input type="checkbox" name="indikator_5_1" value="2"> Anak menunjukkan kedisiplinan</label>
+      <label><input type="checkbox" name="indikator_5_1" value="3"> Anak menunjukkan tanggung jawab</label>
+    </div>
+    <textarea id="observasi_5_1" placeholder="Tulis hasil observasi untuk Butir 5.1"></textarea>
+  </div>
+
+  <div class="butir">
+    <label>Butir 5.2</label>
+    <div class="checkbox-group">
+      <label><input type="checkbox" name="indikator_5_2" value="1"> Anak peduli terhadap teman dan lingkungan</label>
+      <label><input type="checkbox" name="indikator_5_2" value="2"> Anak suka tolong menolong</label>
+      <label><input type="checkbox" name="indikator_5_2" value="3"> Anak mampu bekerja sama</label>
+      <label><input type="checkbox" name="indikator_5_2" value="4"> Anak mampu bermain secara bergantian</label>
+    </div>
+    <textarea id="observasi_5_2" placeholder="Tulis hasil observasi untuk Butir 5.2"></textarea>
+  </div>
+
+  <div class="butir">
+    <label>Butir 5.3</label>
+    <div class="checkbox-group">
+      <label><input type="checkbox" name="indikator_5_3" value="1"> Anak mengenal simbol negara seperti bendera dan Garuda Pancasila</label>
+      <label><input type="checkbox" name="indikator_5_3" value="2"> Anak menyanyikan lagu kebangsaan dan nasional</label>
+      <label><input type="checkbox" name="indikator_5_3" value="3"> Anak mengenal presiden dan wakil presiden</label>
+    </div>
+    <textarea id="observasi_5_3" placeholder="Tulis hasil observasi untuk Butir 5.3"></textarea>
+  </div>
+
+  <div class="butir">
+    <label>Butir 5.4</label>
+    <div class="checkbox-group">
+      <label><input type="checkbox" name="indikator_5_4" value="1"> Anak mengenal budaya lokal seperti bahasa, lagu, tari, dan pakaian daerah</label>
+    </div>
+    <textarea id="observasi_5_4" placeholder="Tulis hasil observasi untuk Butir 5.4"></textarea>
+  </div>
+</div>
+
+<div class="komponen">
+  <h3>Komponen 6: Pembelajaran</h3>
+  <div class="butir">
+    <label>Butir 6.1</label>
+    <div class="checkbox-group">
+      <label><input type="checkbox" name="indikator_6_1" value="1"> Lingkungan disiapkan untuk bermain bebas dan terstruktur</label>
+      <label><input type="checkbox" name="indikator_6_1" value="2"> Pembelajaran melalui kegiatan bermain</label>
+      <label><input type="checkbox" name="indikator_6_1" value="3"> Guru memberikan stimulasi sesuai perkembangan anak</label>
+    </div>
+    <textarea id="observasi_6_1" placeholder="Tulis hasil observasi untuk Butir 6.1"></textarea>
+  </div>
+
+  <div class="butir">
+    <label>Butir 6.2</label>
+    <div class="checkbox-group">
+      <label><input type="checkbox" name="indikator_6_2" value="1"> Guru memiliki rencana kegiatan harian</label>
+      <label><input type="checkbox" name="indikator_6_2" value="2"> Rencana memuat tujuan, langkah kegiatan, alat/bahan, dan evaluasi</label>
+      <label><input type="checkbox" name="indikator_6_2" value="3"> Rencana dikembangkan berdasarkan hasil evaluasi sebelumnya</label>
+    </div>
+    <textarea id="observasi_6_2" placeholder="Tulis hasil observasi untuk Butir 6.2"></textarea>
+  </div>
+
+  <div class="butir">
+    <label>Butir 6.3</label>
+    <div class="checkbox-group">
+      <label><input type="checkbox" name="indikator_6_3" value="1"> Guru memiliki catatan hasil perkembangan anak</label>
+      <label><input type="checkbox" name="indikator_6_3" value="2"> Catatan perkembangan anak digunakan untuk perencanaan selanjutnya</label>
+      <label><input type="checkbox" name="indikator_6_3" value="3"> Catatan perkembangan dibagikan kepada orang tua</label>
+    </div>
+    <textarea id="observasi_6_3" placeholder="Tulis hasil observasi untuk Butir 6.3"></textarea>
+  </div>
+
+  <div class="butir">
+    <label>Butir 6.4</label>
+    <div class="checkbox-group">
+      <label><input type="checkbox" name="indikator_6_4" value="1"> Guru menggunakan metode dan strategi pembelajaran sesuai usia anak</label>
+      <label><input type="checkbox" name="indikator_6_4" value="2"> Guru menggunakan pendekatan tematik dan menyenangkan</label>
+      <label><input type="checkbox" name="indikator_6_4" value="3"> Guru mengintegrasikan nilai karakter dalam pembelajaran</label>
+    </div>
+    <textarea id="observasi_6_4" placeholder="Tulis hasil observasi untuk Butir 6.4"></textarea>
+  </div>
+
+  <div class="butir">
+    <label>Butir 6.5</label>
+    <div class="checkbox-group">
+      <label><input type="checkbox" name="indikator_6_5" value="1"> Guru menciptakan suasana pembelajaran yang aman dan nyaman</label>
+      <label><input type="checkbox" name="indikator_6_5" value="2"> Anak merasa dihargai dan didengarkan</label>
+      <label><input type="checkbox" name="indikator_6_5" value="3"> Guru merespon positif terhadap pertanyaan/pendapat anak</label>
+    </div>
+    <textarea id="observasi_6_5" placeholder="Tulis hasil observasi untuk Butir 6.5"></textarea>
+  </div>
+</div>
+
+<div class="komponen">
+  <h3>Komponen 7: Inovasi & Pengembangan PTK</h3>
+  <div class="butir">
+    <label>Butir 7.1</label>
+    <div class="checkbox-group">
+      <label><input type="checkbox" name="indikator_7_1" value="1"> Guru menunjukkan upaya inovatif dalam pembelajaran</label>
+      <label><input type="checkbox" name="indikator_7_1" value="2"> Guru membuat alat peraga/bahan ajar buatan sendiri</label>
+      <label><input type="checkbox" name="indikator_7_1" value="3"> Guru menerapkan teknologi sederhana dalam pembelajaran</label>
+    </div>
+    <textarea id="observasi_7_1" placeholder="Tulis hasil observasi untuk Butir 7.1"></textarea>
+  </div>
+
+  <div class="butir">
+    <label>Butir 7.2</label>
+    <div class="checkbox-group">
+      <label><input type="checkbox" name="indikator_7_2" value="1"> Guru mengikuti pelatihan atau pengembangan kompetensi</label>
+      <label><input type="checkbox" name="indikator_7_2" value="2"> Guru menerapkan hasil pelatihan dalam pembelajaran</label>
+      <label><input type="checkbox" name="indikator_7_2" value="3"> Guru berbagi praktik baik dengan guru lain</label>
+    </div>
+    <textarea id="observasi_7_2" placeholder="Tulis hasil observasi untuk Butir 7.2"></textarea>
+  </div>
+</div>
+
+<div class="komponen">
+  <h3>Komponen 8: Keamanan & Lingkungan</h3>
+  <div class="butir">
+    <label>Butir 8.1</label>
+    <div class="checkbox-group">
+      <label><input type="checkbox" name="indikator_8_1" value="1"> Lingkungan belajar bersih, aman, sehat, dan nyaman</label>
+      <label><input type="checkbox" name="indikator_8_1" value="2"> Lingkungan memenuhi standar keamanan anak</label>
+      <label><input type="checkbox" name="indikator_8_1" value="3"> Tersedia ventilasi, pencahayaan, air bersih dan toilet anak</label>
+      <label><input type="checkbox" name="indikator_8_1" value="4"> Anak diajarkan menjaga kebersihan dan ketertiban lingkungan</label>
+    </div>
+    <textarea id="observasi_8_1" placeholder="Tulis hasil observasi untuk Butir 8.1"></textarea>
+  </div>
+</div>
+
+<div class="komponen">
+  <h3>Komponen 9: Dukungan Orang Tua</h3>
+  <div class="butir">
+    <label>Butir 9.1</label>
+    <div class="checkbox-group">
+      <label><input type="checkbox" name="indikator_9_1" value="1"> Orang tua terlibat dalam kegiatan pembelajaran anak</label>
+      <label><input type="checkbox" name="indikator_9_1" value="2"> Orang tua memberikan informasi perkembangan anak di rumah</label>
+      <label><input type="checkbox" name="indikator_9_1" value="3"> Orang tua hadir dalam pertemuan atau forum sekolah</label>
+      <label><input type="checkbox" name="indikator_9_1" value="4"> Orang tua mendukung kegiatan sekolah di rumah</label>
+    </div>
+    <textarea id="observasi_9_1" placeholder="Tulis hasil observasi untuk Butir 9.1"></textarea>
+  </div>
+</div>
+
+<div class="komponen">
+  <h3>Komponen 10: Perilaku Hidup Sehat</h3>
+  <div class="butir">
+    <label>Butir 10.1</label>
+    <div class="checkbox-group">
+      <label><input type="checkbox" name="indikator_10_1" value="1"> Anak terbiasa mencuci tangan sebelum dan sesudah makan</label>
+      <label><input type="checkbox" name="indikator_10_1" value="2"> Anak membawa bekal sehat dari rumah</label>
+      <label><input type="checkbox" name="indikator_10_1" value="3"> Anak mengetahui manfaat menjaga kebersihan dan kesehatan</label>
+      <label><input type="checkbox" name="indikator_10_1" value="4"> Anak mengenal makanan sehat dan tidak sehat</label>
+    </div>
+    <textarea id="observasi_10_1" placeholder="Tulis hasil observasi untuk Butir 10.1"></textarea>
+  </div>
+</div>
 
 <button onclick="kirimData()">Kirim</button>
 
 <script>
-  const butirList = {
-    "1.1": [
-      "Guru menanamkan nilai keagamaan melalui dialog, dongeng, cerita, atau buku cerita",
-      "Guru mengenalkan makhluk ciptaan Tuhan dan hasil karya manusia",
-      "Guru memberi contoh perilaku baik terhadap manusia ciptaan Tuhan",
-      "Guru memberi contoh perilaku baik terhadap makhluk ciptaan Tuhan"
-    ],
-    "1.2": [
-      "Guru menstimulasi anak mengucapkan doa",
-      "Guru menstimulasi anak mengucapkan salam",
-      "Guru menstimulasi praktik ibadah",
-      "Guru mengenalkan tempat ibadah"
-    ],
-    "1.3": [
-      "Guru membiasakan menghormati orang tua",
-      "Guru membiasakan sikap jujur",
-      "Guru menstimulasi anak menolong orang lain"
-    ]
-    // Lanjutkan sampai 26 butir sesuai isi PDF...
-  };
-
-  const formContainer = document.getElementById("formContainer");
-
-  for (const [kode, indikatorList] of Object.entries(butirList)) {
-    const section = document.createElement("div");
-    section.className = "komponen";
-
-    const label = document.createElement("label");
-    label.innerText = `Butir ${kode}`;
-    section.appendChild(label);
-
-    const checkboxGroup = document.createElement("div");
-    checkboxGroup.className = "checkbox-group";
-
-    indikatorList.forEach((indikator, idx) => {
-      const checkbox = document.createElement("input");
-      checkbox.type = "checkbox";
-      checkbox.id = `ind_${kode}_${idx}`;
-      checkbox.name = `ind_${kode}`;
-      checkbox.value = indikator;
-
-      const cbLabel = document.createElement("label");
-      cbLabel.htmlFor = checkbox.id;
-      cbLabel.appendChild(checkbox);
-      cbLabel.append(` ${indikator}`);
-      checkboxGroup.appendChild(cbLabel);
-    });
-    section.appendChild(checkboxGroup);
-
-    const textarea = document.createElement("textarea");
-    textarea.id = `observasi_${kode}`;
-    textarea.placeholder = "Tulis hasil observasi, wawancara, atau dokumen di sini...";
-    section.appendChild(textarea);
-
-    formContainer.appendChild(section);
+function kirimData() {
+  const nama = document.getElementById("nama_sekolah").value.trim();
+  const npsn = document.getElementById("npsn").value.trim();
+  if (!nama || !npsn) {
+    alert("Mohon isi Nama Sekolah dan NPSN.");
+    return;
   }
-
-  function kirimData() {
-    const nama = document.getElementById("nama_sekolah").value.trim();
-    const npsn = document.getElementById("npsn").value.trim();
-
-    if (!nama || !npsn) {
-      alert("Mohon isi Nama Sekolah dan NPSN.");
-      return;
-    }
-
-    const hasil = {};
-
-    for (const kode of Object.keys(butirList)) {
-      const tercentang = [];
-      butirList[kode].forEach((indikator, idx) => {
-        const cb = document.getElementById(`ind_${kode}_${idx}`);
-        if (cb && cb.checked) tercentang.push(indikator);
-      });
-      const observasi = document.getElementById(`observasi_${kode}`).value.trim();
-      hasil[kode] = {
-        indikator: tercentang,
-        observasi: observasi
-      };
-    }
-
-    const data = {
-      nama_sekolah: nama,
-      npsn: npsn,
-      jawaban: hasil
-    };
-
-    fetch("https://script.google.com/macros/s/AKfycbyMFsrlt99Kq7NXypkQhObpSXNX2KDgYOTxATNVao424q6Ug6T5hwhDdvucORZKXwXk/exec", {
-      method: "POST",
-      mode: "no-cors",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(data)
-    })
-    .then(() => alert("✅ Data berhasil dikirim ke spreadsheet!"))
-    .catch(err => alert("Gagal mengirim: " + err));
-  }
+  const hasil = {};
+  const butir = ["1.1", "1.2", "1.3", "2.1", "2.2", "2.3", "3.1", "3.2", "3.3", "4.1", "4.2", "4.3", "5.1", "5.2", "5.3", "5.4", "6.1", "6.2", "6.3", "6.4", "6.5", "7.1", "7.2", "8.1", "9.1", "10.1"];
+  butir.forEach(kode => {
+    const checkbox = document.getElementsByName(`indikator_${kode}`);
+    const indikator = [];
+    checkbox.forEach(cb => { if (cb.checked) indikator.push(cb.value); });
+    const observasi = document.getElementById(`observasi_${kode}`).value.trim();
+    hasil[kode] = { indikator, observasi };
+  });
+  const data = { nama_sekolah: nama, npsn: npsn, jawaban: hasil };
+  fetch("https://script.google.com/macros/s/AKfycbyMFsrlt99Kq7NXypkQhObpSXNX2KDgYOTxATNVao424q6Ug6T5hwhDdvucORZKXwXk/exec", {
+    method: "POST",
+    mode: "no-cors",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(data)
+  })
+  .then(() => alert("✅ Data berhasil dikirim ke spreadsheet!"))
+  .catch(err => alert("Gagal mengirim: " + err));
+}
 </script>
 
 </body>
