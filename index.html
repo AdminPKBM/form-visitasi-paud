@@ -4,59 +4,112 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Form Visitasi PAUD</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
   <style>
+    :root {
+      --primary: #2f80ed;
+      --primary-dark: #1c60c1;
+      --bg-light: #f9fbfd;
+      --text: #333;
+      --card-bg: #ffffff;
+    }
+
     body {
-      font-family: Arial, sans-serif;
-      padding: 20px;
-      max-width: 1000px;
-      margin: auto;
+      font-family: 'Inter', sans-serif;
+      background: var(--bg-light);
+      color: var(--text);
+      padding: 2rem;
+      margin: 0;
     }
+
+    h2 {
+      text-align: center;
+      color: var(--primary);
+    }
+
+    input, textarea, button {
+      font-family: inherit;
+    }
+
     label {
+      font-weight: 600;
+      margin-top: 1rem;
       display: block;
-      margin-top: 10px;
-      font-weight: bold;
     }
-    input, textarea {
+
+    input[type="text"], textarea {
       width: 100%;
-      padding: 10px;
-      margin-bottom: 10px;
+      padding: 0.75rem;
+      margin: 0.5rem 0 1rem;
       border: 1px solid #ccc;
-      border-radius: 5px;
-    }
-    button {
-      padding: 10px 20px;
-      background: #28a745;
-      color: white;
-      border: none;
-      border-radius: 5px;
-      font-size: 16px;
-    }
-    button:hover {
-      background: #218838;
-    }
-    .komponen {
-      margin-top: 40px;
-      background: #e9f7ef;
-      padding: 20px;
       border-radius: 8px;
-      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+      font-size: 1rem;
+      background: #fff;
     }
-    .butir {
-      margin-top: 20px;
-      padding: 15px;
-      background: #f9f9f9;
-      border-radius: 6px;
-    }
-    .checkbox-group label {
+
+    button {
+      background: var(--primary);
+      color: #fff;
+      padding: 0.75rem 1.5rem;
+      border: none;
+      border-radius: 8px;
+      font-size: 1rem;
+      cursor: pointer;
+      transition: background 0.3s ease;
+      margin: 2rem auto;
       display: block;
+    }
+
+    button:hover {
+      background: var(--primary-dark);
+    }
+
+    .komponen {
+      background: var(--card-bg);
+      margin-top: 2rem;
+      padding: 1.5rem;
+      border-radius: 12px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+    }
+
+    .komponen h3 {
+      color: var(--primary-dark);
+      margin-bottom: 1rem;
+    }
+
+    .butir {
+      margin-top: 1.5rem;
+      padding: 1rem;
+      background: #f0f4f9;
+      border-radius: 8px;
+    }
+
+    .checkbox-group {
+      margin-top: 0.5rem;
+      padding-left: 1rem;
+    }
+
+    .checkbox-group label {
+      display: flex;
+      align-items: flex-start;
+      margin-bottom: 0.5rem;
       font-weight: normal;
-      margin-left: 15px;
+    }
+
+    .checkbox-group input[type="checkbox"] {
+      margin-right: 0.5rem;
+      margin-top: 0.2rem;
+    }
+
+    @media (max-width: 600px) {
+      .komponen, input[type="text"], textarea, button {
+        font-size: 0.95rem;
+      }
     }
   </style>
 </head>
 <body>
-
-<h2>Form Visitasi PAUD</h2>
+  <h2>Form Visitasi PAUD</h2>
 
 <label>Nama Sekolah</label>
 <input type="text" id="nama_sekolah" placeholder="Contoh: PAUD Ceria" required>
